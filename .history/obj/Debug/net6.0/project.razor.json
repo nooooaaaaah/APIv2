@@ -1,5 +1,5 @@
 {
-  "FilePath": "/Users/noahspielman/Projects/APIv2/APIv2.csproj",
+  "FilePath": "/Users/noahspielman/Projects/APIv2/.history/APIv2_20221018120606.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "6.0",
@@ -16295,7 +16295,7 @@
     ],
     "CSharpLanguageVersion": 1000
   },
-  "RootNamespace": "APIv2",
+  "RootNamespace": "APIv2_20221018120606",
   "Documents": [],
   "SerializationFormat": "0.2"
 }
