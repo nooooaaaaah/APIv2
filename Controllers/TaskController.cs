@@ -33,7 +33,7 @@ namespace APIv2.Controllers
 
         // GET: api/Task/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<APIv2.models.Task>> GetTask(string id)
+        public async Task<ActionResult<APIv2.models.Task>> GetTask(int id)
         {
             if (_context.Tasks == null)
             {
@@ -52,7 +52,7 @@ namespace APIv2.Controllers
         // PUT: api/Task/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTask(string id, APIv2.models.Task task)
+        public async Task<IActionResult> PutTask(int id, APIv2.models.Task task)
         {
             if (id != task.TaskId)
             {
@@ -111,7 +111,7 @@ namespace APIv2.Controllers
 
         // DELETE: api/Task/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTask(string id)
+        public async Task<IActionResult> DeleteTask(int id)
         {
             if (_context.Tasks == null)
             {
@@ -129,7 +129,7 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        private bool TaskExists(string id)
+        private bool TaskExists(int id)
         {
             return (_context.Tasks?.Any(e => e.TaskId == id)).GetValueOrDefault();
         }

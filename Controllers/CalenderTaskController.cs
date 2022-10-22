@@ -24,21 +24,21 @@ namespace APIv2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CalenderTask>>> GetCalenderTasks()
         {
-          if (_context.CalenderTasks == null)
-          {
-              return NotFound();
-          }
+            if (_context.CalenderTasks == null)
+            {
+                return NotFound();
+            }
             return await _context.CalenderTasks.ToListAsync();
         }
 
         // GET: api/CalenderTask/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CalenderTask>> GetCalenderTask(string id)
+        public async Task<ActionResult<CalenderTask>> GetCalenderTask(int id)
         {
-          if (_context.CalenderTasks == null)
-          {
-              return NotFound();
-          }
+            if (_context.CalenderTasks == null)
+            {
+                return NotFound();
+            }
             var calenderTask = await _context.CalenderTasks.FindAsync(id);
 
             if (calenderTask == null)
@@ -52,7 +52,7 @@ namespace APIv2.Controllers
         // PUT: api/CalenderTask/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCalenderTask(string id, CalenderTask calenderTask)
+        public async Task<IActionResult> PutCalenderTask(int id, CalenderTask calenderTask)
         {
             if (id != calenderTask.EventTaskId)
             {
@@ -85,10 +85,10 @@ namespace APIv2.Controllers
         [HttpPost]
         public async Task<ActionResult<CalenderTask>> PostCalenderTask(CalenderTask calenderTask)
         {
-          if (_context.CalenderTasks == null)
-          {
-              return Problem("Entity set 'NyapolaDBContext.CalenderTasks'  is null.");
-          }
+            if (_context.CalenderTasks == null)
+            {
+                return Problem("Entity set 'NyapolaDBContext.CalenderTasks'  is null.");
+            }
             _context.CalenderTasks.Add(calenderTask);
             try
             {
@@ -111,7 +111,7 @@ namespace APIv2.Controllers
 
         // DELETE: api/CalenderTask/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCalenderTask(string id)
+        public async Task<IActionResult> DeleteCalenderTask(int id)
         {
             if (_context.CalenderTasks == null)
             {
@@ -129,7 +129,7 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        private bool CalenderTaskExists(string id)
+        private bool CalenderTaskExists(int id)
         {
             return (_context.CalenderTasks?.Any(e => e.EventTaskId == id)).GetValueOrDefault();
         }
