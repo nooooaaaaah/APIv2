@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using APIv2.models;
 
+// namespace SwashbuckleSample.Models;
 namespace APIv2.models
 {
     public partial class NyapolaDBContext : DbContext
@@ -17,12 +18,12 @@ namespace APIv2.models
         {
         }
 
-        public virtual DbSet<Calender> Calenders { get; set; } = null!;
-        public virtual DbSet<CalenderTask> CalenderTasks { get; set; } = null!;
-        public virtual DbSet<Garden> Gardens { get; set; } = null!;
-        public virtual DbSet<Plant> Plants { get; set; } = null!;
-        public virtual DbSet<Task> Tasks { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Calender> Calenders { get; set; }
+        public virtual DbSet<CalenderTask> CalenderTasks { get; set; }
+        public virtual DbSet<Garden> Gardens { get; set; }
+        public virtual DbSet<Plant> Plants { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,9 +42,10 @@ namespace APIv2.models
 
                 entity.ToTable("Calender");
 
-                entity.HasIndex(e => e.GardenId, "IX_Calender_GardenID");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
+                entity.Property(e => e.EventId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("EventID");
 
                 entity.Property(e => e.DateTime)
                     .HasColumnType("smalldatetime")
@@ -53,7 +55,10 @@ namespace APIv2.models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.GardenId).HasColumnName("GardenID");
+                entity.Property(e => e.GardenId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("GardenID");
 
                 entity.HasOne(d => d.Garden)
                     .WithMany(p => p.Calenders)
@@ -68,15 +73,20 @@ namespace APIv2.models
 
                 entity.ToTable("Calender Task");
 
-                entity.HasIndex(e => e.EventId, "IX_Calender Task_EventID");
+                entity.Property(e => e.EventTaskId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("EventTaskID");
 
-                entity.HasIndex(e => e.TaskId, "IX_Calender Task_TaskID");
+                entity.Property(e => e.EventId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("EventID");
 
-                entity.Property(e => e.EventTaskId).HasColumnName("EventTaskID");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
-
-                entity.Property(e => e.TaskId).HasColumnName("TaskID");
+                entity.Property(e => e.TaskId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("TaskID");
 
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.CalenderTasks)
@@ -95,30 +105,39 @@ namespace APIv2.models
             {
                 entity.ToTable("Garden");
 
-                entity.HasIndex(e => e.UserId, "IX_Garden_UserID");
-
-                entity.Property(e => e.GardenId).HasColumnName("GardenID");
+                entity.Property(e => e.GardenId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("GardenID");
 
                 entity.Property(e => e.GardenName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("UserID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Gardens)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Garden_User");
+                    .HasConstraintName("FK_Garden_User")
+                    .IsRequired(false);
             });
 
             modelBuilder.Entity<Plant>(entity =>
             {
-                entity.HasIndex(e => e.GardenId, "IX_Plants_GardenID");
+                entity.Property(e => e.PlantId)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("PlantID");
 
-                entity.Property(e => e.PlantId).HasColumnName("PlantID");
-
-                entity.Property(e => e.GardenId).HasColumnName("GardenID");
+                entity.Property(e => e.GardenId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("GardenID");
 
                 entity.Property(e => e.PlantDate)
                     .HasMaxLength(50)
@@ -141,7 +160,10 @@ namespace APIv2.models
 
             modelBuilder.Entity<Task>(entity =>
             {
-                entity.Property(e => e.TaskId).HasColumnName("TaskID");
+                entity.Property(e => e.TaskId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("TaskID");
 
                 entity.Property(e => e.TaskDescription)
                     .HasMaxLength(50)
@@ -156,7 +178,10 @@ namespace APIv2.models
             {
                 entity.ToTable("User");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("UserID");
 
                 entity.Property(e => e.CustomerAddress)
                     .HasMaxLength(50)
