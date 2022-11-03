@@ -174,9 +174,6 @@ namespace APIv2.models
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .IsFixedLength();
-
-                entity.HasMany(d => d.Gardens)
-                    .WithOne(p => p.User);
             });
 
             OnModelCreatingPartial(modelBuilder);
