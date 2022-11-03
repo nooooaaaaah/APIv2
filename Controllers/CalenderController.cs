@@ -24,21 +24,21 @@ namespace APIv2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Calender>>> GetCalenders()
         {
-          if (_context.Calenders == null)
-          {
-              return NotFound();
-          }
+            if (_context.Calenders == null)
+            {
+                return NotFound();
+            }
             return await _context.Calenders.ToListAsync();
         }
 
         // GET: api/Calender/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Calender>> GetCalender(string id)
+        public async Task<ActionResult<Calender>> GetCalender(int id)
         {
-          if (_context.Calenders == null)
-          {
-              return NotFound();
-          }
+            if (_context.Calenders == null)
+            {
+                return NotFound();
+            }
             var calender = await _context.Calenders.FindAsync(id);
 
             if (calender == null)
@@ -52,7 +52,7 @@ namespace APIv2.Controllers
         // PUT: api/Calender/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCalender(string id, Calender calender)
+        public async Task<IActionResult> PutCalender(int id, Calender calender)
         {
             if (id != calender.EventId)
             {
@@ -85,10 +85,10 @@ namespace APIv2.Controllers
         [HttpPost]
         public async Task<ActionResult<Calender>> PostCalender(Calender calender)
         {
-          if (_context.Calenders == null)
-          {
-              return Problem("Entity set 'NyapolaDBContext.Calenders'  is null.");
-          }
+            if (_context.Calenders == null)
+            {
+                return Problem("Entity set 'NyapolaDBContext.Calenders'  is null.");
+            }
             _context.Calenders.Add(calender);
             try
             {
@@ -111,7 +111,7 @@ namespace APIv2.Controllers
 
         // DELETE: api/Calender/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCalender(string id)
+        public async Task<IActionResult> DeleteCalender(int id)
         {
             if (_context.Calenders == null)
             {
@@ -129,7 +129,7 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        private bool CalenderExists(string id)
+        private bool CalenderExists(int id)
         {
             return (_context.Calenders?.Any(e => e.EventId == id)).GetValueOrDefault();
         }

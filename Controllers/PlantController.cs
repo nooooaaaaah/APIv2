@@ -24,21 +24,21 @@ namespace APIv2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Plant>>> GetPlants()
         {
-          if (_context.Plants == null)
-          {
-              return NotFound();
-          }
+            if (_context.Plants == null)
+            {
+                return NotFound();
+            }
             return await _context.Plants.ToListAsync();
         }
 
         // GET: api/Plant/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Plant>> GetPlant(string id)
+        public async Task<ActionResult<Plant>> GetPlant(int id)
         {
-          if (_context.Plants == null)
-          {
-              return NotFound();
-          }
+            if (_context.Plants == null)
+            {
+                return NotFound();
+            }
             var plant = await _context.Plants.FindAsync(id);
 
             if (plant == null)
@@ -52,7 +52,7 @@ namespace APIv2.Controllers
         // PUT: api/Plant/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlant(string id, Plant plant)
+        public async Task<IActionResult> PutPlant(int id, Plant plant)
         {
             if (id != plant.PlantId)
             {
@@ -85,10 +85,10 @@ namespace APIv2.Controllers
         [HttpPost]
         public async Task<ActionResult<Plant>> PostPlant(Plant plant)
         {
-          if (_context.Plants == null)
-          {
-              return Problem("Entity set 'NyapolaDBContext.Plants'  is null.");
-          }
+            if (_context.Plants == null)
+            {
+                return Problem("Entity set 'NyapolaDBContext.Plants'  is null.");
+            }
             _context.Plants.Add(plant);
             try
             {
@@ -111,7 +111,7 @@ namespace APIv2.Controllers
 
         // DELETE: api/Plant/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlant(string id)
+        public async Task<IActionResult> DeletePlant(int id)
         {
             if (_context.Plants == null)
             {
@@ -129,7 +129,7 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        private bool PlantExists(string id)
+        private bool PlantExists(int id)
         {
             return (_context.Plants?.Any(e => e.PlantId == id)).GetValueOrDefault();
         }
