@@ -3,6 +3,7 @@ using APIv2.models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIv2.Migrations
 {
     [DbContext(typeof(SpielmanDBContext))]
-    partial class SpielmanDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221103225135_userid")]
+    partial class userid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,33 +23,12 @@ namespace APIv2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("APIv2.models.Event", b =>
-                {
-                    b.Property<int>("EventId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"), 1L, 1);
-
-                    b.Property<string>("EventDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EventName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EventId");
-
-                    b.ToTable("Event");
-                });
-
             modelBuilder.Entity("APIv2.models.Garden", b =>
                 {
                     b.Property<int>("GardenId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("GardenID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GardenId"), 1L, 1);
 
@@ -60,48 +41,9 @@ namespace APIv2.Migrations
 
                     b.HasKey("GardenId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Gardens");
-                });
-
-            modelBuilder.Entity("APIv2.models.Job", b =>
-                {
-                    b.Property<int>("JobId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobId"), 1L, 1);
-
-                    b.Property<string>("TaskDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaskName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("JobId");
-
-                    b.ToTable("Task");
-                });
-
-            modelBuilder.Entity("APIv2.models.Plant", b =>
-                {
-                    b.Property<int>("PlantId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlantId"), 1L, 1);
-
-                    b.Property<int>("GardenId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PlantName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlantVariety")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PlantId");
-
-                    b.ToTable("Plant");
                 });
 
             modelBuilder.Entity("APIv2.models.User", b =>
@@ -139,6 +81,22 @@ namespace APIv2.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("APIv2.models.Garden", b =>
+                {
+                    b.HasOne("APIv2.models.User", "User")
+                        .WithMany("Gardens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("APIv2.models.User", b =>
+                {
+                    b.Navigation("Gardens");
                 });
 #pragma warning restore 612, 618
         }

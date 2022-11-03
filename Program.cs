@@ -4,8 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<SpielmanDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SpielmanDBContext") ?? throw new InvalidOperationException("Connection string 'SpielmanDBContext' not found.")));
+
 
 // Add services to the container.
 builder.Services.AddControllers();

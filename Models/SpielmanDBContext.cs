@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -19,7 +19,7 @@ namespace APIv2.models
 
         // public virtual DbSet<Calender> Calenders { get; set; } = null!;
         // public virtual DbSet<CalenderTask> CalenderTasks { get; set; } = null!;
-        // public virtual DbSet<Garden> Gardens { get; set; } = null!;
+        public virtual DbSet<Garden> Gardens { get; set; } = null!;
         // public virtual DbSet<Plant> Plants { get; set; } = null!;
         // public virtual DbSet<Task> Tasks { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -39,10 +39,6 @@ namespace APIv2.models
             {
                 entity.ToTable("User");
 
-                entity.Property(e => e.UserId)
-                .HasColumnName("UserID");
-
-
                 entity.Property(e => e.CustomerAddress)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -61,23 +57,26 @@ namespace APIv2.models
                     .IsFixedLength();
             });
 
-            // modelBuilder.Entity<Garden>(entity =>
-            // {
-            //     entity.Property(g => g.GardenId)
-            //     .HasColumnName("GardenID");
+            modelBuilder.Entity<Garden>(entity =>
+            {
 
-            //     entity.Property(g => g.GardenName)
-            //     .HasMaxLength(20);
 
-            //     entity.HasOne(e => e.User)
-            //     .WithMany(g => g.Gardens);
+                entity.Property(g => g.GardenName)
+                .HasMaxLength(20);
 
-            // }
-            // );
+
+            }
+            );
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<APIv2.models.Plant> Plant { get; set; }
+
+        public DbSet<APIv2.models.Job> Task { get; set; }
+
+        public DbSet<APIv2.models.Event> Event { get; set; }
     }
 }

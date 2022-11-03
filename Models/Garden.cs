@@ -7,9 +7,8 @@ namespace APIv2.models
     {
         public int GardenId { get; set; }
         public string GardenName { get; set; } = null!;
-
-        public string UserID { get; set; }
-        public User User { get; set; }
-
+        public int UserId { get; set; }
+        User User { get; set; }
+        List<Plant> Plants { get; set; }
     }
 }

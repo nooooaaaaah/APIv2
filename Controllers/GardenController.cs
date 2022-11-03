@@ -11,47 +11,47 @@ namespace APIv2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class GardenController : ControllerBase
     {
         private readonly SpielmanDBContext _context;
 
-        public UserController(SpielmanDBContext context)
+        public GardenController(SpielmanDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Garden
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Garden>>> GetGardens()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Gardens.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Garden/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Garden>> GetGarden(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var garden = await _context.Gardens.FindAsync(id);
 
-            if (user == null)
+            if (garden == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return garden;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Garden/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutGarden(int id, Garden garden)
         {
-            if (id != user.UserId)
+            if (id != garden.GardenId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(garden).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace APIv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!GardenExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Garden
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Garden>> PostGarden(Garden garden)
         {
-            _context.Users.Add(user);
+            _context.Gardens.Add(garden);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetGarden", new { id = garden.GardenId }, garden);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Garden/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteGarden(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var garden = await _context.Gardens.FindAsync(id);
+            if (garden == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Gardens.Remove(garden);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool GardenExists(int id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.Gardens.Any(e => e.GardenId == id);
         }
     }
 }
