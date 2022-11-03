@@ -11,47 +11,47 @@ namespace APIv2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlantController : ControllerBase
+    public class JobController : ControllerBase
     {
         private readonly SpielmanDBContext _context;
 
-        public PlantController(SpielmanDBContext context)
+        public JobController(SpielmanDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Plant
+        // GET: api/Job
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Plant>>> GetPlant()
+        public async Task<ActionResult<IEnumerable<Job>>> GetTask()
         {
-            return await _context.Plant.ToListAsync();
+            return await _context.Task.ToListAsync();
         }
 
-        // GET: api/Plant/5
+        // GET: api/Job/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Plant>> GetPlant(int id)
+        public async Task<ActionResult<Job>> GetJob(int id)
         {
-            var plant = await _context.Plant.FindAsync(id);
+            var job = await _context.Task.FindAsync(id);
 
-            if (plant == null)
+            if (job == null)
             {
                 return NotFound();
             }
 
-            return plant;
+            return job;
         }
 
-        // PUT: api/Plant/5
+        // PUT: api/Job/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlant(int id, Plant plant)
+        public async Task<IActionResult> PutJob(int id, Job job)
         {
-            if (id != plant.PlantId)
+            if (id != job.JobId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(plant).State = EntityState.Modified;
+            _context.Entry(job).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace APIv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlantExists(id))
+                if (!JobExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        // POST: api/Plant
+        // POST: api/Job
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Plant>> PostPlant(Plant plant)
+        public async Task<ActionResult<Job>> PostJob(Job job)
         {
-            _context.Plant.Add(plant);
+            _context.Task.Add(job);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlant", new { id = plant.PlantId }, plant);
+            return CreatedAtAction("GetJob", new { id = job.JobId }, job);
         }
 
-        // DELETE: api/Plant/5
+        // DELETE: api/Job/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlant(int id)
+        public async Task<IActionResult> DeleteJob(int id)
         {
-            var plant = await _context.Plant.FindAsync(id);
-            if (plant == null)
+            var job = await _context.Task.FindAsync(id);
+            if (job == null)
             {
                 return NotFound();
             }
 
-            _context.Plant.Remove(plant);
+            _context.Task.Remove(job);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PlantExists(int id)
+        private bool JobExists(int id)
         {
-            return _context.Plant.Any(e => e.PlantId == id);
+            return _context.Task.Any(e => e.JobId == id);
         }
     }
 }

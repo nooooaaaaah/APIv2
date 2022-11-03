@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using APIv2.models;
+using Microsoft.Extensions.DependencyInjection;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddSqlServer<NyapolaDBContext>("Data Source=BusCISSQL1901.busdom.colostate.edu\\cisweb; Database=NyapolaDB; User ID=ibmblu; Password=first; TrustServerCertificate=True");
+builder.Services.AddSqlServer<SpielmanDBContext>("Data Source=BusCISSQL1901.busdom.colostate.edu\\cisweb; Database=SpielmanDB; User ID=angle; Password=jscript; TrustServerCertificate=True");
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

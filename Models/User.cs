@@ -12,6 +12,7 @@ namespace APIv2.models
         public string? CustomerEmail { get; set; }
         public string? CustomerAddress { get; set; }
 
-        public virtual List<Garden> Gardens { get; set; }
+        List<Garden> Gardens { get; set; }
+
     }
 }

@@ -13,9 +13,9 @@ namespace APIv2.Controllers
     [ApiController]
     public class GardenController : ControllerBase
     {
-        private readonly NyapolaDBContext _context;
+        private readonly SpielmanDBContext _context;
 
-        public GardenController(NyapolaDBContext context)
+        public GardenController(SpielmanDBContext context)
         {
             _context = context;
         }
@@ -24,21 +24,13 @@ namespace APIv2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Garden>>> GetGardens()
         {
-            if (_context.Gardens == null)
-            {
-                return NotFound();
-            }
             return await _context.Gardens.ToListAsync();
         }
 
-        // GET: api/Garden/5 
+        // GET: api/Garden/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Garden>> GetGarden(int id)
         {
-            if (_context.Gardens == null)
-            {
-                return NotFound();
-            }
             var garden = await _context.Gardens.FindAsync(id);
 
             if (garden == null)
@@ -85,38 +77,16 @@ namespace APIv2.Controllers
         [HttpPost]
         public async Task<ActionResult<Garden>> PostGarden(Garden garden)
         {
-            if (_context.Gardens == null)
-            {
-                return Problem("Entity set 'NyapolaDBContext.Gardens'  is null.");
-            }
             _context.Gardens.Add(garden);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (GardenExists(garden.GardenId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetGarden), new { id = garden.GardenId }, garden);
+            return CreatedAtAction("GetGarden", new { id = garden.GardenId }, garden);
         }
 
         // DELETE: api/Garden/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGarden(int id)
         {
-            if (_context.Gardens == null)
-            {
-                return NotFound();
-            }
             var garden = await _context.Gardens.FindAsync(id);
             if (garden == null)
             {
@@ -131,7 +101,7 @@ namespace APIv2.Controllers
 
         private bool GardenExists(int id)
         {
-            return (_context.Gardens?.Any(e => e.GardenId == id)).GetValueOrDefault();
+            return _context.Gardens.Any(e => e.GardenId == id);
         }
     }
 }

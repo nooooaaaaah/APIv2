@@ -11,47 +11,47 @@ namespace APIv2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlantController : ControllerBase
+    public class EventController : ControllerBase
     {
         private readonly SpielmanDBContext _context;
 
-        public PlantController(SpielmanDBContext context)
+        public EventController(SpielmanDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Plant
+        // GET: api/Event
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Plant>>> GetPlant()
+        public async Task<ActionResult<IEnumerable<Event>>> GetEvent()
         {
-            return await _context.Plant.ToListAsync();
+            return await _context.Event.ToListAsync();
         }
 
-        // GET: api/Plant/5
+        // GET: api/Event/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Plant>> GetPlant(int id)
+        public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            var plant = await _context.Plant.FindAsync(id);
+            var @event = await _context.Event.FindAsync(id);
 
-            if (plant == null)
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return plant;
+            return @event;
         }
 
-        // PUT: api/Plant/5
+        // PUT: api/Event/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlant(int id, Plant plant)
+        public async Task<IActionResult> PutEvent(int id, Event @event)
         {
-            if (id != plant.PlantId)
+            if (id != @event.EventId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(plant).State = EntityState.Modified;
+            _context.Entry(@event).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace APIv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlantExists(id))
+                if (!EventExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace APIv2.Controllers
             return NoContent();
         }
 
-        // POST: api/Plant
+        // POST: api/Event
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Plant>> PostPlant(Plant plant)
+        public async Task<ActionResult<Event>> PostEvent(Event @event)
         {
-            _context.Plant.Add(plant);
+            _context.Event.Add(@event);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlant", new { id = plant.PlantId }, plant);
+            return CreatedAtAction("GetEvent", new { id = @event.EventId }, @event);
         }
 
-        // DELETE: api/Plant/5
+        // DELETE: api/Event/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlant(int id)
+        public async Task<IActionResult> DeleteEvent(int id)
         {
-            var plant = await _context.Plant.FindAsync(id);
-            if (plant == null)
+            var @event = await _context.Event.FindAsync(id);
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            _context.Plant.Remove(plant);
+            _context.Event.Remove(@event);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PlantExists(int id)
+        private bool EventExists(int id)
         {
-            return _context.Plant.Any(e => e.PlantId == id);
+            return _context.Event.Any(e => e.EventId == id);
         }
     }
 }

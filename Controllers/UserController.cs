@@ -13,9 +13,9 @@ namespace APIv2.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly NyapolaDBContext _context;
+        private readonly SpielmanDBContext _context;
 
-        public UserController(NyapolaDBContext context)
+        public UserController(SpielmanDBContext context)
         {
             _context = context;
         }
@@ -24,10 +24,6 @@ namespace APIv2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
             return await _context.Users.ToListAsync();
         }
 
@@ -35,10 +31,6 @@ namespace APIv2.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -85,38 +77,16 @@ namespace APIv2.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            if (_context.Users == null)
-            {
-                return Problem("Entity set 'NyapolaDBContext.Users'  is null.");
-            }
             _context.Users.Add(user);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (UserExists(user.UserId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
+            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
@@ -131,7 +101,7 @@ namespace APIv2.Controllers
 
         private bool UserExists(int id)
         {
-            return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }
