@@ -17,11 +17,11 @@ namespace APIv2.models
         {
         }
 
-        // public virtual DbSet<Calender> Calenders { get; set; } = null!;
+        public virtual DbSet<Event> Events { get; set; } = null!;
         // public virtual DbSet<CalenderTask> CalenderTasks { get; set; } = null!;
         public virtual DbSet<Garden> Gardens { get; set; } = null!;
-        // public virtual DbSet<Plant> Plants { get; set; } = null!;
-        // public virtual DbSet<Task> Tasks { get; set; } = null!;
+        public virtual DbSet<Plant> Plants { get; set; } = null!;
+        public virtual DbSet<Job> Jobs { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
