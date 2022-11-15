@@ -53,8 +53,7 @@ namespace APIv2.models
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Garden>(entity =>

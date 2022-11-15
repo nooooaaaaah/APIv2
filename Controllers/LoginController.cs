@@ -23,6 +23,10 @@ namespace APIv2.Controllers
         public async Task<ActionResult<User>> PostLogin(Login login)
         {
             var user = UserNamePasswordExists(login.UserName, login.Password);
+            if (user == null)
+            {
+                return NotFound();
+            }
             return user;
         }
 
@@ -33,8 +37,9 @@ namespace APIv2.Controllers
             if (UserNameExists(username) && UserPasswordExists(password))
             {
                 user = _context.Users.SingleOrDefault(user => user.UserName == username);
+                return user;
             }
-            return user;
+            return null;
 
         }
         private bool UserPasswordExists(string password)
