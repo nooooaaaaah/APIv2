@@ -23,11 +23,7 @@ namespace APIv2.Controllers
         public async Task<ActionResult<User>> PostLogin(Login login)
         {
             var user = UserNamePasswordExists(login.UserName, login.Password);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return user;
+            return user == null ? NotFound() : user;
         }
 
         //methods 
@@ -47,7 +43,7 @@ namespace APIv2.Controllers
             return _context.Users.Any(e =>
             e.UserPassword == password);
         }
-                private bool UserNameExists(string username)
+        private bool UserNameExists(string username)
         {
             return _context.Users.Any(e =>
             e.UserName == username);
