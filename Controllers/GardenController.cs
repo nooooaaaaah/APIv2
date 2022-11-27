@@ -27,19 +27,29 @@ namespace APIv2.Controllers
             return await _context.Gardens.ToListAsync();
         }
 
-        // GET: api/Garden/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Garden>> GetGarden(int id)
+        [HttpGet("/userid/{userID:int}")]
+        public async Task<ActionResult<IEnumerable<Garden>>> GetUserGarden(int userId)
         {
-            var garden = await _context.Gardens.FindAsync(id);
-
-            if (garden == null)
+            var gardens = _context.Gardens.Where(e => e.UserId == userId);
+            if (gardens == null)
             {
                 return NotFound();
             }
-
-            return garden;
+            return await gardens.ToListAsync();
         }
+
+        // GET: api/Garden/5
+        // [HttpGet("{id:int}")]
+        // public async Task<ActionResult<Garden>> GetGarden(int id)
+        // {
+        //     var garden = await _context.Gardens.FindAsync(id);
+        //     if (garden == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return garden;
+        // }
 
         // PUT: api/Garden/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -50,7 +60,6 @@ namespace APIv2.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(garden).State = EntityState.Modified;
 
             try
