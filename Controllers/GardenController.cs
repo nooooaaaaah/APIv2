@@ -27,29 +27,30 @@ namespace APIv2.Controllers
             return await _context.Gardens.ToListAsync();
         }
 
-        [HttpGet("/userid/{userID:int}")]
-        public async Task<ActionResult<IEnumerable<Garden>>> GetUserGarden(int userId)
+        [HttpGet("user/{userID:int}")]
+        public async Task<ActionResult<IEnumerable<Garden>>> GetUserGarden(int userID)
         {
-            var gardens = _context.Gardens.Where(e => e.UserId == userId);
+            var gardens = _context.Gardens.Where(e => e.UserId == userID);
             if (gardens == null)
             {
+                Console.Write("asd");
                 return NotFound();
             }
             return await gardens.ToListAsync();
         }
 
         // GET: api/Garden/5
-        // [HttpGet("{id:int}")]
-        // public async Task<ActionResult<Garden>> GetGarden(int id)
-        // {
-        //     var garden = await _context.Gardens.FindAsync(id);
-        //     if (garden == null)
-        //     {
-        //         return NotFound();
-        //     }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Garden>> GetGarden(int id)
+        {
+            var garden = await _context.Gardens.FindAsync(id);
+            if (garden == null)
+            {
+                return NotFound();
+            }
 
-        //     return garden;
-        // }
+            return garden;
+        }
 
         // PUT: api/Garden/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

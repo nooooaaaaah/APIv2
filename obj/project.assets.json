@@ -10025,19 +10025,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/noahspielman/.nuget/packages/": {}
+    "C:\\Users\\Noah\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/noahspielman/Projects/CS410 Workspace/APIv2/APIv2.csproj",
+      "projectUniqueName": "C:\\Users\\Noah\\Documents\\stall\\CIS410_Project\\APIv2\\APIv2.csproj",
       "projectName": "APIv2",
-      "projectPath": "/Users/noahspielman/Projects/CS410 Workspace/APIv2/APIv2.csproj",
-      "packagesPath": "/Users/noahspielman/.nuget/packages/",
-      "outputPath": "/Users/noahspielman/Projects/CS410 Workspace/APIv2/obj/",
+      "projectPath": "C:\\Users\\Noah\\Documents\\stall\\CIS410_Project\\APIv2\\APIv2.csproj",
+      "packagesPath": "C:\\Users\\Noah\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Noah\\Documents\\stall\\CIS410_Project\\APIv2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/noahspielman/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Noah\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -10099,7 +10099,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
