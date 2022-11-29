@@ -15,5 +15,7 @@ namespace APIv2.models
         public string RecurrenceRule { get; set; }
         public string RecurrenceException { get; set; }
         public Nullable<int> RecurrenceID { get; set; }
+        public int UserId { get; set; }
+        User User { get; set; }
     }
 }

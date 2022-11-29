@@ -27,6 +27,18 @@ namespace APIv2.Controllers
             return await _context.Task.ToListAsync();
         }
 
+        // GET: api/job/user/5
+        [HttpGet("user/{userID:int}")]
+        public async Task<ActionResult<IEnumerable<Garden>>> GetUserJob(int userID)
+        {
+            var jobs = _context.Gardens.Where(e => e.UserId == userID);
+            if (jobs == null)
+            {
+                return NotFound();
+            }
+            return await jobs.ToListAsync();
+        }
+
         // GET: api/Job/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Job>> GetJob(int id)

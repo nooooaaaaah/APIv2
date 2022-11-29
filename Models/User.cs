@@ -13,6 +13,8 @@ namespace APIv2.models
         public string? CustomerAddress { get; set; }
 
         List<Garden> Gardens { get; set; }
-
+        List<Event> Events { get; set; }
+        List<Job> Jobs { get; set; }
+        List<Plant> Plants { get; set; }
     }
 }

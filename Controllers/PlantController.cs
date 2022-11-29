@@ -26,6 +26,20 @@ namespace APIv2.Controllers
         {
             return await _context.Plant.ToListAsync();
         }
+        
+        // TODO Get plants by garden
+        // GET: api/Plant/user/5
+        [HttpGet("garden/{gardenID:int}")]
+        public async Task<ActionResult<IEnumerable<Plant>>> GetPlantbyGarden(int gardenID)
+        {
+            var plants = _context.Plants.Where(e => e.GardenId == gardenID);
+            if (plants == null)
+            {
+                return NotFound();
+            }
+            return await plants.ToListAsync();
+        }
+
 
         // GET: api/Plant/5
         [HttpGet("{id}")]
@@ -68,7 +82,6 @@ namespace APIv2.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 

@@ -27,13 +27,13 @@ namespace APIv2.Controllers
             return await _context.Gardens.ToListAsync();
         }
 
+        // GET: api/Garden/user/5
         [HttpGet("user/{userID:int}")]
         public async Task<ActionResult<IEnumerable<Garden>>> GetUserGarden(int userID)
         {
             var gardens = _context.Gardens.Where(e => e.UserId == userID);
             if (gardens == null)
             {
-                Console.Write("asd");
                 return NotFound();
             }
             return await gardens.ToListAsync();
