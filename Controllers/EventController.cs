@@ -41,6 +41,18 @@ namespace APIv2.Controllers
             return @event;
         }
 
+        // GET: api/event/user/5
+        [HttpGet("user/{userID:int}")]
+        public async Task<ActionResult<IEnumerable<Event>>> GetUserEvent(int userID)
+        {
+            var events = _context.Events.Where(e => e.UserId == userID);
+            if (events == null)
+            {
+                return NotFound();
+            }
+            return await events.ToListAsync();
+        }
+
         // PUT: api/Event/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

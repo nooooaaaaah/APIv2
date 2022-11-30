@@ -29,9 +29,9 @@ namespace APIv2.Controllers
 
         // GET: api/job/user/5
         [HttpGet("user/{userID:int}")]
-        public async Task<ActionResult<IEnumerable<Garden>>> GetUserJob(int userID)
+        public async Task<ActionResult<IEnumerable<Job>>> GetUserJob(int userID)
         {
-            var jobs = _context.Gardens.Where(e => e.UserId == userID);
+            var jobs = _context.Jobs.Where(e => e.UserId == userID);
             if (jobs == null)
             {
                 return NotFound();
