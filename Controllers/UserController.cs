@@ -71,6 +71,41 @@ namespace APIv2.Controllers
 
             return NoContent();
         }
+        [HttpPut("password/{id}")]
+        public async Task<IActionResult> PutUserPassword(int id, string password)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (id != user.UserId)
+            {
+                return BadRequest();
+            }
+
+            // Update the user's password
+            user.UserPassword = password;
+
+            // Set the state of the user entity to "modified"
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                // Save the changes to the database
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
 
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
