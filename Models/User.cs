@@ -16,5 +16,7 @@ namespace APIv2.models
         List<Event> Events { get; set; }
         List<Job> Jobs { get; set; }
         List<Plant> Plants { get; set; }
+        List<Sensor> Sensors { get; set; }
+
     }
 }

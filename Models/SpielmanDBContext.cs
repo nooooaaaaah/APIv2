@@ -23,12 +23,12 @@ namespace APIv2.models
         public virtual DbSet<Plant> Plants { get; set; } = null!;
         public virtual DbSet<Job> Jobs { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Sensor> Sensors { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=129.82.133.38\\cisweb; Database=SpielmanDB; User ID=angle; Password=jscript; TrustServerCertificate=True");
             }
         }
@@ -77,5 +77,7 @@ namespace APIv2.models
         public DbSet<APIv2.models.Job> Task { get; set; }
 
         public DbSet<APIv2.models.Event> Event { get; set; }
+        public DbSet<APIv2.models.Sensor> Sensor { get; set; }
+        public DbSet<APIv2.models.Garden> Garden { get; set; }
     }
 }

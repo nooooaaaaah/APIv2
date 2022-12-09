@@ -10,5 +10,6 @@ namespace APIv2.models
         public int UserId { get; set; }
         User User { get; set; }
         List<Plant> Plants { get; set; }
+        List<Sensor> Sensors { get; set; }
     }
 }
