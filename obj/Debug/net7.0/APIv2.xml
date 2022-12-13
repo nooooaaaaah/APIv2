@@ -4,5 +4,17 @@
         <name>APIv2</name>
     </assembly>
     <members>
+        <member name="T:APIv2.Migrations.sensorsTB">
+            <inheritdoc />
+        </member>
+        <member name="M:APIv2.Migrations.sensorsTB.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:APIv2.Migrations.sensorsTB.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:APIv2.Migrations.sensorsTB.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

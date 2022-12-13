@@ -35,37 +35,37 @@ namespace APIv2.models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("User");
+            // modelBuilder.Entity<User>(entity =>
+            // {
+            //     entity.ToTable("User");
 
-                entity.Property(e => e.CustomerAddress)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+            //     entity.Property(e => e.CustomerAddress)
+            //         .HasMaxLength(50)
+            //         .IsUnicode(false);
 
-                entity.Property(e => e.CustomerEmail)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+            //     entity.Property(e => e.CustomerEmail)
+            //         .HasMaxLength(50)
+            //         .IsUnicode(false);
 
-                entity.Property(e => e.CustomerName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+            //     entity.Property(e => e.CustomerName)
+            //         .HasMaxLength(50)
+            //         .IsUnicode(false);
 
-                entity.Property(e => e.UserName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-            });
+            //     entity.Property(e => e.UserName)
+            //         .HasMaxLength(20)
+            //         .IsUnicode(false);
+            // });
 
-            modelBuilder.Entity<Garden>(entity =>
-            {
-
-
-                entity.Property(g => g.GardenName)
-                .HasMaxLength(20);
+            // modelBuilder.Entity<Garden>(entity =>
+            // {
 
 
-            }
-            );
+            //     entity.Property(g => g.GardenName)
+            //     .HasMaxLength(20);
+
+
+            // }
+            // );
 
             OnModelCreatingPartial(modelBuilder);
         }

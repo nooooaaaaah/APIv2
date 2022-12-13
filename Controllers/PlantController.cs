@@ -60,7 +60,6 @@ namespace APIv2.Controllers
             {
                 return NotFound();
             }
-
             return plant;
         }
 
